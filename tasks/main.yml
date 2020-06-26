@@ -34,18 +34,20 @@
 
 - name: Output Java version
   debug:
-    var: java_version
+    var: java_version.stderr_lines
 
 - name: DL Metabase
   get_url:
     url: "{{ metabase_download_url }}"
     dest: "{{ metabase_install_dir }}/metabase.jar"
     owner: "{{ metabase_user }}"
+  notify: restart metabase
 
 - name: Add defaults file for Metabase ENV variables
   template:
     src: metabase_defaults.j2
     dest: /etc/default/metabase
+  notify: restart metabase
 
 - name: Install SystemD config for Metabase
   template:
@@ -57,3 +59,6 @@
     daemon_reload: yes
     name: metabase.service
     enabled: yes
+
+- name: Flush handlers
+  meta: flush_handlers
