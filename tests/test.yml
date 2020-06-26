@@ -1,5 +1,7 @@
 ---
 - hosts: localhost
   remote_user: root
+  vars:
+    metabase_port: 3000
   roles:
-    - mediafellows.metabase
+    - ansible-role-metabase

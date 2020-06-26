@@ -1,21 +1,14 @@
 ---
+
+sudo: required
+dist: xenial
+
 language: python
-python: "2.7"
-
-# Use the new container infrastructure
-sudo: false
-
-# Install ansible
-addons:
-  apt:
-    packages:
-    - python-pip
+python: "3.5"
 
 install:
   # Install ansible
   - pip install ansible
-
-  # Check ansible version
   - ansible --version
 
   # Create ansible.cfg with correct roles_path
