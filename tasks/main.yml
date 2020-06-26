@@ -49,7 +49,7 @@
 
 - name: Install SystemD config for Metabase
   template:
-    src: ../templates/systemd/metabase.service.j2
+    src: metabase.service.j2
     dest: /etc/systemd/system/metabase.service
 
 - name: Enable Metabase systemd service
