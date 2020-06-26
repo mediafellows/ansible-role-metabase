@@ -17,11 +17,21 @@ install:
   # Create ansible.cfg with correct roles_path
   - printf '[defaults]\nroles_path=../' >ansible.cfg
 
+  # Install ruby2.0 and serverspec gem as root
+  - sudo apt-get install -y ruby
+  - sudo ruby -v
+  - sudo gem install serverspec
+
+
 script:
   # Linting for YAML correctness
   - yamllint .
   # Basic role syntax check
   - ansible-playbook tests/test.yml -i tests/inventory --syntax-check
+  # Real run:
+  - ansible-playbook tests/test.yml -i tests/inventory --connection=local
+  # Run serverspec
+  - sudo rake spec
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
