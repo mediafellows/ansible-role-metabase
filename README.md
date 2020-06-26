@@ -13,6 +13,7 @@ Role variables you might want override:
 - `metabase_port: 3000` - The port the Metabase deamon is listening on.
 - `metabase_user: metabase` - The system user to use for running the Metabase deamon.
 - `java_package: openjre-123` - The java package to install for Metabase, leave blank if you already have a working Java on that machine
+- `metabase_settings_db_type: h2` - Change DB type for Metabase settings, for `posgres` und `mysql` type please also override connection details!
 
 Find more variables in `defaults/main.yml`.
 

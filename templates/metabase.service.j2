@@ -1,0 +1,26 @@
+# {{ ansible_managed }}
+#
+# SystemD config for running Metabase
+# See docs https://www.metabase.com/docs/latest/operations-guide/running-metabase-on-debian.html
+
+[Unit]
+Description=Metabase server
+After=syslog.target
+After=network.target
+
+[Service]
+Type=simple
+Restart=on-failure
+RestartSec=5
+
+EnvironmentFile=/etc/default/metabase
+WorkingDirectory={{ metabase_install_dir }}
+
+ExecStart=/usr/bin/java -jar {{ metabase_install_dir }}/metabase.jar
+SuccessExitStatus=143
+
+User={{ metabase_user }}
+SyslogIdentifier=metabase
+
+[Install]
+WantedBy=multi-user.target

@@ -1,10 +1,34 @@
 ---
 # defaults file for mediafellows.metabase
 
-metabase_port: 3000
+# System user/group for running Metabse
 metabase_user: metabase
+metabase_group: metabase
+
 # valid version in the format of v0.35.4 or latest (will be used in download URL)
 metabase_version: latest
+metabase_install_dir: /opt/metabase/
 
 # Use this variable to install a java package through apt:
 # metabase_java_package: openjdk-8-jre-headless
+
+# -- Metabase config variables --
+
+# Webserver:
+metabase_listen_host: 127.0.0.1
+metabase_port: 3000
+
+# PW policy:
+metabase_password_length: 10
+metabase_password_complexity: strong
+
+# DB for Metabase settings:
+metabase_settings_db_type: h2
+# only used for h2 type:
+metabase_settings_db_file: "{{ metabase_install_dir }}/metabase.db"
+# only used for postgres or mysql type:
+metabase_settings_db_port: 5432
+metabase_settings_db_host: localhost
+metabase_settings_db_user: metabase
+metabase_settings_db_pass: super-secret-pw
+

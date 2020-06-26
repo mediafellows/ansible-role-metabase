@@ -1,7 +1,59 @@
 ---
 # tasks file for mediafellows.metabase
 
-- name: Task
+- name: Install Java package if given - for running Metabase JAR
+  apt:
+    name: "{{ metabase_java_package }}"
+  when: metabase_java_package is defined
+
+- name: Create a system group for Metabase app
+  group:
+    name: "{{ metabase_group }}"
+    system: yes
+    state: present
+
+- name: Create system users to run the Metabase app
+  user:
+    name: "{{ metabase_user }}"
+    group: "{{ metabase_group }}"
+    system: yes
+    state: present
+
+- name: Creates app directory
+  file:
+    path: "{{ metabase_install_dir }}"
+    state: directory
+    owner: "{{ metabase_user }}"
+    group: "{{ metabase_group }}"
+    mode: 0775
+
+- name: Probe Java command
+  command: /usr/bin/java -version
+  become_user: "{{  metabase_user }}"
+  register: java_version
+
+- name: Output Java version
+  debug:
+    var: java_version
+
+- name: DL Metabase
   get_url:
-    url: ""
-    dest: ""
+    url: "{{ metabase_download_url }}"
+    dest: "{{ metabase_install_dir }}/metabase.jar"
+    owner: "{{ metabase_user }}"
+
+- name: Add defaults file for Metabase ENV variables
+  template:
+    src: metabase_defaults.j2
+    dest: /etc/default/metabase
+
+- name: Install SystemD config for Metabase
+  template:
+    src: ../templates/systemd/metabase.service.j2
+    dest: /etc/systemd/system/metabase.service
+
+- name: Enable Metabase systemd service
+  systemd:
+    daemon_reload: yes
+    name: metabase.service
+    enabled: yes
