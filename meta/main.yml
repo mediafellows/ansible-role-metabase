@@ -1,0 +1,22 @@
+galaxy_info:
+  author: Stefan Horning
+  description: Role for setting up Metabase
+  company: Mediafellows GmbH
+  license: BSD-3-Clause
+  min_ansible_version: 2.8
+
+  platforms:
+    - name: Ubuntu
+      versions:
+        - all
+    - name: Debian
+      versions:
+        - all
+
+  galaxy_tags:
+    - business_inteligence
+    - databases
+    - server
+    - metabase
+
+dependencies: []

@@ -1,0 +1,4 @@
+---
+# vars file for mediafellows.metabase
+
+metabase_download_url: 'https://downloads.metabase.com/{{ metabase_version }}/metabase.jar'
