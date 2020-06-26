@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/mediafellows/ansible-role-metabase.svg?branch=master)](https://travis-ci.com/mediafellows/ansible-role-metabase)
+
 # Ansible Role Metabase
 
 An Ansible role to install the [Metabase](https://www.metabase.com/) BI server software on a Linux server.
