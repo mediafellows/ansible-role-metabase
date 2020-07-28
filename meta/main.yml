@@ -1,4 +1,5 @@
 galaxy_info:
+  role_name: metabase
   author: Stefan Horning
   description: Role for setting up Metabase
   company: Mediafellows GmbH
