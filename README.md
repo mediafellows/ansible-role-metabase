@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/mediafellows/ansible-role-metabase.svg?branch=master)](https://travis-ci.com/mediafellows/ansible-role-metabase)
+[]()
 
 # Ansible Role Metabase
 
