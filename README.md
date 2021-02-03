@@ -1,4 +1,4 @@
-[]()
+[![Ansible-Test](https://github.com/mediafellows/ansible-role-metabase/workflows/Ansible-Test/badge.svg)](https://github.com/mediafellows/ansible-role-metabase/actions?query=workflow%3AAnsible-Test)
 
 # Ansible Role Metabase
 
