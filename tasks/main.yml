@@ -2,25 +2,25 @@
 # tasks file for mediafellows.metabase
 
 - name: Install Java package if given - for running Metabase JAR
-  apt:
+  ansible.builtin.apt:
     name: "{{ metabase_java_package }}"
   when: metabase_java_package is defined
 
 - name: Create a system group for Metabase app
-  group:
+  ansible.builtin.group:
     name: "{{ metabase_group }}"
     system: yes
     state: present
 
 - name: Create system users to run the Metabase app
-  user:
+  ansible.builtin.user:
     name: "{{ metabase_user }}"
     group: "{{ metabase_group }}"
     system: yes
     state: present
 
 - name: Creates app directory
-  file:
+  ansible.builtin.file:
     path: "{{ metabase_install_dir }}"
     state: directory
     owner: "{{ metabase_user }}"
@@ -28,37 +28,38 @@
     mode: 0775
 
 - name: Probe Java command
-  command: /usr/bin/java -version
+  ansible.builtin.command:
+    cmd: /usr/bin/java -version
   become_user: "{{  metabase_user }}"
   register: java_version
 
 - name: Output Java version
-  debug:
+  ansible.builtin.debug:
     var: java_version.stderr_lines
 
 - name: DL Metabase
-  get_url:
+  ansible.builtin.get_url:
     url: "{{ metabase_download_url }}"
     dest: "{{ metabase_install_dir }}/metabase.jar"
     owner: "{{ metabase_user }}"
   notify: restart metabase
 
 - name: Add defaults file for Metabase ENV variables
-  template:
+  ansible.builtin.template:
     src: metabase_defaults.j2
     dest: /etc/default/metabase
   notify: restart metabase
 
 - name: Install SystemD config for Metabase
-  template:
+  ansible.builtin.template:
     src: metabase.service.j2
     dest: /etc/systemd/system/metabase.service
 
 - name: Enable Metabase systemd service
-  systemd:
+  ansible.builtin.systemd:
     daemon_reload: yes
     name: metabase.service
     enabled: yes
 
 - name: Flush handlers
-  meta: flush_handlers
+  ansible.builtin.meta: flush_handlers
