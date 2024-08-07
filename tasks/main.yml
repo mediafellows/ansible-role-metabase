@@ -19,7 +19,7 @@
     system: yes
     state: present
 
-- name: Creates app directory
+- name: Creates Metabase install directory
   ansible.builtin.file:
     path: "{{ metabase_install_dir }}"
     state: directory
@@ -27,10 +27,18 @@
     group: "{{ metabase_group }}"
     mode: 0775
 
+- name: Creates Metabase plugins directory
+  ansible.builtin.file:
+    path: "{{ metabase_plugins_dir }}"
+    state: directory
+    owner: "{{ metabase_user }}"
+    group: "{{ metabase_group }}"
+    mode: 0755
+
 - name: Probe Java command
   ansible.builtin.command:
     cmd: /usr/bin/java -version
-  become_user: "{{  metabase_user }}"
+  become_user: "{{ metabase_user }}"
   register: java_version
 
 - name: Output Java version
