@@ -8,6 +8,7 @@ metabase_group: metabase
 # valid version in the format of v0.35.4 or latest (will be used in download URL)
 metabase_version: latest
 metabase_install_dir: /opt/metabase
+metabase_plugins_dir: "{{ metabase_install_dir }}/plugins"
 
 # Use this variable to install a java package through apt:
 # metabase_java_package: openjdk-8-jre-headless
