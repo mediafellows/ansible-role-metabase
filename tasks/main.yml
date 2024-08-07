@@ -29,7 +29,7 @@
 
 - name: Creates Metabase plugins directory
   ansible.builtin.file:
-    path: "{{ metabase_plugins_dir }"
+    path: "{{ metabase_plugins_dir }}"
     state: directory
     owner: "{{ metabase_user }}"
     group: "{{ metabase_group }}"
